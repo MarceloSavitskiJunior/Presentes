@@ -2,6 +2,8 @@ package br.com.presentes.Presentes.usuario.model;
 
 import br.com.presentes.Presentes.presente.model.Presente;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +32,9 @@ public class Usuario {
     @Column(name = "SENHA_ALTERNATIVA")
     private String senhaAlternativa;
 
-    @JsonBackReference
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     @OneToMany(mappedBy = "usuario")
     private List<Presente> presentes;
 }
